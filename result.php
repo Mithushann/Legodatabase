@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><!-- Makes it so it doesnt show the warning when validating-->
 <head>
+<meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- link to the css style-->
 <link	href="css/style.css"	media="screen"	rel="stylesheet"	type="text/css"/>
@@ -95,7 +96,8 @@ else {
 				}
 				print("<td>$filename</td>\n");
 				$Partname = $row['Partname'];
-				print("<td><a href=\"setinfo.php?Partname=$Partname\"><img src=\"$prefix$filename\" alt=\"Part $ItemID\"/> </a></td>");
+				$part = str_replace(" ", "%20", $Partname);
+				print("<td><a href=\"setinfo.php?Partname=$part\"><img src=\"$prefix$filename\" alt=\"Part $ItemID\"/></a></td>");
 				$Colorname = $row['Colorname'];
 				
 				print("<td>$Colorname</td>");
