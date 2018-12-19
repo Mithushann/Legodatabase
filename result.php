@@ -19,7 +19,6 @@
     <a href="index.html">Home</a>
 	<a href="About.html">About Us</a>
     <a href="result.php">Lego List</a>
-    <a href="#">Contact</a>
   </div>
 </div> <!-- Navigation code menu ends here-->
 
@@ -46,18 +45,20 @@
 			
 			$search = $_GET['searchkey'];
 			if ($search == NULL) {
-					$result	= mysqli_query($connection, "SELECT inventory.Quantity, inventory.ItemTypeID, inventory.ItemID,
-					inventory.ColorID, colors.Colorname, parts.Partname FROM inventory, parts, colors WHERE inventory.SetID='375-2' AND
+					$result	= mysqli_query($connection, "SELECT inventory.Quantity, inventory.ItemTypeID, inventory.ItemID, inventory.SetID, 
+					inventory.ColorID, colors.Colorname, parts.Partname FROM inventory, parts, colors WHERE 
 					inventory.ItemTypeID='P' AND inventory.ItemID=parts.PartID AND inventory.ColorID=colors.ColorID LIMIT 100");
 			}
 			else{
-			$result	= mysqli_query($connection, "SELECT inventory.Quantity, inventory.ItemTypeID, inventory.ItemID,
-			inventory.ColorID, colors.Colorname, parts.Partname FROM inventory, parts, colors WHERE inventory.SetID='375-2' AND
+			$result	= mysqli_query($connection, "SELECT inventory.Quantity, inventory.ItemTypeID, inventory.ItemID, inventory.SetID,
+			inventory.ColorID, colors.Colorname, parts.Partname FROM inventory, parts, colors WHERE 
 			inventory.ItemTypeID='P' AND inventory.ItemID=parts.PartID AND inventory.ColorID=colors.ColorID AND parts.Partname LIKE '%$search%' LIMIT 100");
 			}
+			
 			if(mysqli_num_rows($result) == 0) {
 				print("<p>No parts in inventory for this set.</p>\n");
-			} else {
+			}
+else {
 				print("<table class =\"table\">\n");
 				print ("<thead>");
 				print ("<tr>");
@@ -93,15 +94,16 @@
 					$filename = "noimage_small.png";
 				}
 				print("<td>$filename</td>\n");
-				print("<td><a href=\"http://www.student.itn.liu.se/~linla666/project%20Lego%20Library/setinfo.php\"><img src=\"$prefix$filename\" alt=\"Part $ItemID\"/> </a></td>");
-				$Colorname = $row['Colorname'];
 				$Partname = $row['Partname'];
+				print("<td><a href=\"setinfo.php?Partname=$Partname\"><img src=\"$prefix$filename\" alt=\"Part $ItemID\"/> </a></td>");
+				$Colorname = $row['Colorname'];
+				
 				print("<td>$Colorname</td>");
 				print("<td>$Partname</td>");
 				}
 				print("</table>\n");
+
 		}
-		
   ?>
  <!--Code for the table starts here-->
 </div>
